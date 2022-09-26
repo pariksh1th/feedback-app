@@ -1,7 +1,11 @@
 import FeedbackItem from "./FeedbackItem";
 import { AnimatePresence, motion } from "framer-motion";
+import { useContext } from "react";
+import FeedbackContaxt from "./contaxt/FeedbackContaxt";
 
-function FeedbackList({ feedback, setFeedback }) {
+function FeedbackList() {
+  const { feedback, setFeedback } = useContext(FeedbackContaxt);
+
   const handleDelete = (id) => {
     setFeedback(feedback.filter((item) => item.id !== id));
   };

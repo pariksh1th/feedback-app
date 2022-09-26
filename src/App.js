@@ -1,21 +1,35 @@
-import { useState } from "react";
-import FeedbackData from "./components/data/feedbackData";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FeedbackForm from "./components/FeedbackForm";
 import FeedbackList from "./components/FeedbackList";
 import FeedbackStats from "./components/FeedbackStats";
 import Header from "./components/Header";
+import AboutPage from "./components/pages/AboutPage";
+import AboutLinkIcon from "./components/AboutLinkIcon";
+import { FeedbackProvider } from "./components/contaxt/FeedbackContaxt";
 
 export default function App() {
-  const [feedback, setFeedback] = useState(FeedbackData);
-
   return (
-    <>
-      <Header />
-      <div className="container">
-        <FeedbackForm setFeedback={setFeedback} />
-        <FeedbackStats feedback={feedback} />
-        <FeedbackList setFeedback={setFeedback} feedback={feedback} />
-      </div>
-    </>
+    <FeedbackProvider>
+      <Router>
+        <Header />
+        <div className="container">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <FeedbackForm />
+                  <FeedbackStats />
+                  <FeedbackList />
+                  <AboutLinkIcon />
+                </>
+              }
+            />
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </FeedbackProvider>
   );
 }
