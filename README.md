@@ -6,6 +6,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm run dev`
+
+Runing both backend and frontend same time using Concurrently package.
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+Runs the json-server.\
+fetch request form this url [http://localhost:4000](http://localhost:4000) .
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
 ### `npm start`
 
 Runs the app in the development mode.\
