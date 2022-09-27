@@ -2,7 +2,7 @@ import Card from "./shared/Card";
 import Button from "./shared/Button";
 import { useContext, useEffect, useState } from "react";
 import Rating from "./Rating";
-// import { v4 as uuidv4 } from "uuid";
+
 import FeedbackContaxt from "./contaxt/FeedbackContaxt";
 
 function FeedbackForm() {
@@ -37,24 +37,31 @@ function FeedbackForm() {
     setText(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // const id = uuidv4();
-    if (text.trim().length > 10) {
-      const newFeedback = {
-        text,
-        rating,
-        // id,
-      };
-      // if (feedbackEdit.edit) {
-      //   updateFeedback(feedbackEdit.item.id, newFeedback);
-      // } else {
-      //   setFeedback((feedbacks) => [newFeedback, ...feedbacks]);
-      // }
-      setFeedback((feedbacks) => [newFeedback, ...feedbacks]);
 
-      setText("");
+    const newFeedback = {
+      text,
+      rating,
+    };
+
+    if (feedbackEdit.edit) {
+      updateFeedback(feedbackEdit.item.id, newFeedback);
+    } else {
+      const res = await fetch("/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newFeedback),
+      });
+
+      const data = await res.json();
+      setFeedback((feedbacks) => [data, ...feedbacks]);
     }
+
+    setText("");
+    setDisabled(true);
   };
 
   return (
